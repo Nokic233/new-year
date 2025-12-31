@@ -1,0 +1,157 @@
+:root {
+    /* Warm Theme (Default) */
+    --bg-color: #0f0505;
+    --text-color: #ffdab9;
+    --accent-color: #ff4500;
+    --font-main: 'Noto Serif SC', serif;
+    --glow-strength: 10px;
+    --lantern-color: #ff5e00;
+}
+
+body,
+html {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background-color: var(--bg-color);
+    font-family: var(--font-main);
+    color: var(--text-color);
+    transition: background-color 0.5s ease;
+}
+
+#app {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+#bgCanvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+}
+
+.content {
+    position: relative;
+    z-index: 10;
+    text-align: center;
+    pointer-events: none; /* Let clicks pass through to canvas/buttons */
+    transition: filter 0.2s;
+}
+
+.title {
+    font-size: 5rem;
+    margin: 0;
+    text-shadow: 0 0 var(--glow-strength) var(--accent-color);
+    animation: float 6s ease-in-out infinite;
+}
+
+.subtitle {
+    font-size: 1.5rem;
+    margin-top: 1rem;
+    opacity: 0.9;
+    letter-spacing: 0.2em;
+}
+
+.cyber-trigger {
+    margin-top: 3rem;
+    font-size: 3rem;
+    cursor: pointer;
+    pointer-events: auto;
+    transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    display: inline-block;
+    filter: drop-shadow(0 0 15px var(--lantern-color));
+}
+
+.cyber-trigger:hover {
+    transform: scale(1.2) rotate(5deg);
+}
+
+/* Animations */
+@keyframes float {
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-15px);
+    }
+}
+
+/* Cyberpunk Mode overrides */
+body.cyberpunk {
+    --bg-color: #050014;
+    --text-color: #00f3ff;
+    --accent-color: #ff00ff;
+    --font-main: 'Orbitron', sans-serif;
+    --glow-strength: 5px;
+    --lantern-color: #00f3ff;
+}
+
+body.cyberpunk .title {
+    text-shadow: 2px 2px 0px #ff00ff, -2px -2px 0px #00f3ff;
+    animation: glitch-anim 2s infinite linear alternate-reverse;
+}
+
+body.cyberpunk .subtitle {
+    text-transform: uppercase;
+    letter-spacing: 0.5em;
+}
+
+@keyframes glitch-anim {
+    0% {
+        clip-path: inset(10% 0 80% 0);
+        transform: translate(-2px, 1px);
+    }
+    20% {
+        clip-path: inset(80% 0 1% 0);
+        transform: translate(2px, -1px);
+    }
+    40% {
+        clip-path: inset(40% 0 30% 0);
+        transform: translate(-2px, 2px);
+    }
+    60% {
+        clip-path: inset(10% 0 60% 0);
+        transform: translate(2px, -2px);
+    }
+    80% {
+        clip-path: inset(50% 0 20% 0);
+        transform: translate(-1px, 1px);
+    }
+    100% {
+        clip-path: inset(30% 0 10% 0);
+        transform: translate(1px, -1px);
+    }
+}
+
+.glitch-overlay {
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: repeating-linear-gradient(
+        0deg,
+        rgba(0, 0, 0, 0.15),
+        rgba(0, 0, 0, 0.15) 1px,
+        transparent 1px,
+        transparent 2px
+    );
+    pointer-events: none;
+    z-index: 5;
+}
+
+body.cyberpunk .glitch-overlay {
+    display: block;
+}
